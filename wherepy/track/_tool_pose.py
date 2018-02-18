@@ -40,15 +40,30 @@ class ToolPose(object):
         """Get this tool's ID."""
         return self.__tid
 
+    @tid.setter
+    def tid(self, tid):
+        """Do nothing: setting deliberately disallowed."""
+        pass
+
     @property
     def quaternion(self):
         """Get this tool's quaternion."""
         return self.__quaternion
 
+    @quaternion.setter
+    def quaternion(self, quaternion):
+        """Do nothing: setting deliberately disallowed."""
+        pass
+
     @property
     def coordinates(self):
         """Get this tool's coordinates."""
         return self.__coordinates
+
+    @coordinates.setter
+    def coordinates(self, coordinates):
+        """Do nothing: setting deliberately disallowed."""
+        pass
 
     @property
     def quality(self):
@@ -58,7 +73,17 @@ class ToolPose(object):
         """
         return self.__quality, self.__error
 
+    @quality.setter
+    def quality(self, quality):
+        """Do nothing: setting deliberately disallowed."""
+        pass
+
     @property
     def timestamp(self):
         """Get this pose's capture timestamp."""
         return self.__timestamp
+
+    @timestamp.setter
+    def timestamp(self, timestamp):
+        """Do nothing: setting deliberately disallowed."""
+        pass
