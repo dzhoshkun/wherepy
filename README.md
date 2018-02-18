@@ -16,6 +16,10 @@ Sample application to demonstrate real-time tool tracking.
 
 `pip install git+git://github.com/dzhoshkun/wherepy`
 
+### Usage
+
+Under construction.
+
 ## Licensing and Copyright
 
 Copyright 2018 WherePy contributors.
