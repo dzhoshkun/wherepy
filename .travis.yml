@@ -8,3 +8,7 @@ script:
   - python -c 'import wherepy.gui'
   - python -c 'import wherepy.io'
   - python -c 'import wherepy.track'
+
+  # test console scripts
+  - wherepy-collector-gui --help
+  - wherepy-collector-cli --help
