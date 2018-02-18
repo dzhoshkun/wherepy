@@ -9,4 +9,3 @@ class Collector(object):
         :type graphical: bool
         """
         self.graphical = graphical
-        pass
