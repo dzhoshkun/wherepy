@@ -4,6 +4,9 @@ from wherepy.io import SessionLog
 
 class SessionLogTestCase(unittest.TestCase):
 
+    def test_invalid_filepath_raises(self):
+        self.__fail()
+
     def test_session_file_created(self):
         self.__fail()
 
