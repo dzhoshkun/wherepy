@@ -2,6 +2,16 @@
 
 Sample application to demonstrate real-time tool tracking.
 
+## Getting Started
+
+### Requirements
+
+* Python 2.7
+
+### Installation
+
+`pip install git+git://github.com/dzhoshkun/wherepy`
+
 ## Licensing and Copyright
 
 Copyright 2018 WherePy contributors.
