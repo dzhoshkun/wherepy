@@ -5,7 +5,7 @@ jobs:
     - stage: unit tests
       script: python -m unittest discover -s 'tests'
 
-    - stage: test components callable
+    - stage: test deployment
       script:
         # install
         - pip install .
