@@ -13,6 +13,16 @@ class SessionLog(object):
         manipulation
         :raise OSError: if file creation fails for any reason
         """
+        self.__filepath = filepath
+
+    @property
+    def filepath(self):
+        """Get this session log's filepath."""
+        return self.__filepath
+
+    @filepath.setter
+    def filepath(self, filepath):
+        """Do nothing: setting deliberately disallowed."""
         pass
 
     def append(self, tool_pose):
