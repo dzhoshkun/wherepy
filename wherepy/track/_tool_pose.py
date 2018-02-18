@@ -40,7 +40,7 @@ class ToolPose(object):
             raise ValueError('A point in space has 3 coordinates')
         self.__coordinates = coordinates
 
-        if not (0.00 <= quality <= 1.00):
+        if not 0.00 <= quality <= 1.00:
             raise ValueError('Quality value should be between 0.00 and'
                              ' 1.00 ({} passed)'.format(quality))
         self.__quality = quality
