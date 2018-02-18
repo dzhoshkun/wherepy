@@ -1,6 +1,9 @@
 language: python
 
 script:
+  # run unit tests
+  - python -m unittest discover -s "tests"
+
   # test installation
   - pip install .
   - python -c 'import wherepy'
