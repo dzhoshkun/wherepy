@@ -1,3 +1,6 @@
+"""Internal module that keeps the runnable Collector class."""
+
+
 class Collector(object):
     """This class implements the collection of tracking data."""
 
