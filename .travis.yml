@@ -19,8 +19,8 @@ jobs:
         - python -c 'import wherepy.app'
         - python -c 'import wherepy.gui'
         - python -c 'import wherepy.io'
-        - python -c 'import wherepy.track.Tracker'
-        - python -c 'import wherepy.track.ToolPose'
+        - python -c 'from wherepy.track import Tracker'
+        - python -c 'from wherepy.track import ToolPose'
         # test console scripts callable
         - wherepy-collector-gui --help
         - wherepy-collector-cli --help
