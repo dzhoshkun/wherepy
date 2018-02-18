@@ -28,11 +28,27 @@ class ToolPose(object):
 
         # pylint:disable=too-many-arguments
 
+        if tid is None:
+            raise ValueError('Tool ID cannot be None')
         self.__tid = tid
+
+        if len(quaternion) != 4:
+            raise ValueError('A quaternion has 4 elements')
         self.__quaternion = quaternion
+
+        if len(coordinates) != 3:
+            raise ValueError('A point in space has 3 coordinates')
         self.__coordinates = coordinates
+
+        if not (0.00 <= quality <= 1.00):
+            raise ValueError('Quality value should be between 0.00 and'
+                             ' 1.00 ({} passed)'.format(quality))
         self.__quality = quality
         self.__error = error
+
+        if timestamp <= 0.0:
+            raise ValueError('A timestamp is usually a positive floating-'
+                             'point value ({} passed)'.format(timestamp))
         self.__timestamp = timestamp
 
     @property
