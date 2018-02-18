@@ -4,6 +4,8 @@
 class SessionLog(object):
     """This class takes care of logging all tracking data."""
 
+    # pylint:disable=too-few-public-methods
+
     def __init__(self, filepath):
         """Create a blank session file in passed path.
 
