@@ -1,5 +1,10 @@
+"""Internal module that keeps the runnable Collector class."""
+
+
 class Collector(object):
     """This class implements the collection of tracking data."""
+
+    # pylint:disable=too-few-public-methods
 
     def __init__(self, graphical=True):
         """
@@ -9,4 +14,3 @@ class Collector(object):
         :type graphical: bool
         """
         self.graphical = graphical
-        pass
