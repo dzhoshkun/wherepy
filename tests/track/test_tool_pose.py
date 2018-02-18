@@ -26,57 +26,48 @@ class ToolPoseTestCase(unittest.TestCase):
         cls.invalid_timestamp = -123456789.123456
 
     def test_id_validity_checked(self):
-        self.assertRaises(
-            ValueError,
+        with self.assertRaises(ValueError):
             ToolPose(tid=ToolPoseTestCase.invalid_tid,
                      quaternion=ToolPoseTestCase.valid_quaternion,
                      coordinates=ToolPoseTestCase.valid_coordinates,
                      quality=ToolPoseTestCase.valid_quality,
                      error=None
                      )
-        )
 
     def test_quaternion_validity_checked(self):
-        self.assertRaises(
-            ValueError,
+        with self.assertRaises(ValueError):
             ToolPose(tid=ToolPoseTestCase.valid_tid,
                      quaternion=ToolPoseTestCase.invalid_quaternion,
                      coordinates=ToolPoseTestCase.valid_coordinates,
                      quality=ToolPoseTestCase.valid_quality,
                      error=None
                      )
-        )
 
     def test_coordinates_validity_checked(self):
-        self.assertRaises(
-            ValueError,
+        with self.assertRaises(ValueError):
             ToolPose(tid=ToolPoseTestCase.valid_tid,
                      quaternion=ToolPoseTestCase.valid_quaternion,
                      coordinates=ToolPoseTestCase.invalid_coordinates,
                      quality=ToolPoseTestCase.valid_quality,
                      error=None
                      )
-        )
 
     def test_quality_validity_checked(self):
         for invalid_quality in ToolPoseTestCase.invalid_qualities:
-            self.assertRaises(
-                ValueError,
+            with self.assertRaises(ValueError):
                 ToolPose(tid=ToolPoseTestCase.valid_tid,
                          quaternion=ToolPoseTestCase.valid_quaternion,
                          coordinates=ToolPoseTestCase.valid_coordinates,
                          quality=invalid_quality,
                          error=None
                          )
-            )
 
     def test_timestamp_validity_checked(self):
-        self.assertRaises(
-            ValueError,
+        with self.assertRaises(ValueError):
             ToolPose(tid=ToolPoseTestCase.valid_tid,
                      quaternion=ToolPoseTestCase.valid_quaternion,
                      coordinates=ToolPoseTestCase.valid_coordinates,
                      quality=ToolPoseTestCase.valid_qualities[0],
                      error=None,
-                     timestamp=ToolPoseTestCase.invalid_timestamp)
-        )
+                     timestamp=ToolPoseTestCase.invalid_timestamp
+                     )
