@@ -1,3 +1,4 @@
+"""Functions that implement the functionality of console scripts."""
 from ._collector import Collector
 
 
