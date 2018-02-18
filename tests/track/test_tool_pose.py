@@ -4,7 +4,7 @@ from wherepy.track import ToolPose
 
 class ToolPoseTestCase(unittest.TestCase):
 
-    @staticmethod
+    @classmethod
     def setUpClass(cls):
         # valid means not None
         cls.valid_tid = '1'
