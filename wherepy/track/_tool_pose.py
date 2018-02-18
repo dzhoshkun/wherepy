@@ -28,7 +28,7 @@ class ToolPose(object):
 
         # pylint:disable=too-many-arguments
 
-        self.__id = tid
+        self.__tid = tid
         self.__quaternion = quaternion
         self.__coordinates = coordinates
         self.__quality = quality
