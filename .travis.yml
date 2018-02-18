@@ -5,16 +5,16 @@ jobs:
     - stage: unit tests
       script: python -m unittest discover -s 'tests'
 
-    - stage: deploy to staging
+    - stage: test components callable
       script:
+        # install
         - pip install .
+        # test packages importable
         - python -c 'import wherepy'
         - python -c 'import wherepy.app'
         - python -c 'import wherepy.gui'
         - python -c 'import wherepy.io'
         - python -c 'import wherepy.track'
-
-    - stage: test staging
-      script:
+        # test console scripts callable
         - wherepy-collector-gui --help
         - wherepy-collector-cli --help
