@@ -2,6 +2,9 @@ language: python
 
 jobs:
   include:
+    - stage: lint
+      script: pylint wherepy
+
     - stage: unit tests
       script: python -m unittest discover -s 'tests'
 
