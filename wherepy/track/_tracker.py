@@ -6,7 +6,7 @@ class Tracker(object):
 
     def __init__(self):
         """Create an instance ready for connecting."""
-        self.connected = False
+        self.__connected = False
 
     def connect(self):
         """Connect to tracking device.
