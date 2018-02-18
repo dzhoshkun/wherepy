@@ -1,8 +1,11 @@
+from ._collector import Collector
+
+
 def collector_gui():
     """Start tracking data collector in GUI mode."""
-    pass
+    collector = Collector(graphical=True)
 
 
 def collector_cli():
     """Start tracking data collector in CLI mode."""
-    pass
+    collector = Collector(graphical=False)
