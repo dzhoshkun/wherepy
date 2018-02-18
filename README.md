@@ -1,6 +1,7 @@
 # WherePy
 
 [![Build Status](https://travis-ci.org/dzhoshkun/wherepy.svg?branch=master)](https://travis-ci.org/dzhoshkun/wherepy)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/dzhoshkun/wherepy/blob/master/LICENSE)
 
 Sample application to demonstrate real-time tool tracking.
 
