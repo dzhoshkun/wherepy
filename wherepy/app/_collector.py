@@ -4,6 +4,8 @@
 class Collector(object):
     """This class implements the collection of tracking data."""
 
+    # pylint:disable=too-few-public-methods
+
     def __init__(self, graphical=True):
         """
         Start data collection right away.
