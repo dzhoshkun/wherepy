@@ -25,6 +25,9 @@ class ToolPose(object):
         https://docs.python.org/2/library/time.html#time.time
         :raise ValueError: if any of the given parameters are invalid
         """
+
+        # pylint:disable=too-many-arguments
+
         self.__id = tid
         self.__quaternion = quaternion
         self.__coordinates = coordinates
