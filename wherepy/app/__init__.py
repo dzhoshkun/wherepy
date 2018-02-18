@@ -1,6 +1,6 @@
-def wherepy_collector_gui():
+def collector_gui():
     pass
 
 
-def wherepy_collector_cli():
+def collector_cli():
     pass
