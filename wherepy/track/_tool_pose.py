@@ -6,6 +6,8 @@ from time import time
 class ToolPose(object):
     """Abstraction for timestamped tracking data of a tool."""
 
+    # pylint:disable=too-few-public-methods
+
     def __init__(self, tid, quaternion, coordinates, quality, error, timestamp=time()):
         """Construct a new tool pose with given data.
 
