@@ -7,6 +7,7 @@ setup(
     url='https://github.com/dzhoshkun/wherepy',
     author='Dzhoshkun Ismail Shakir',
     author_email='dzhoshkun.shakir@gmail.com',
+    python_requires='>=2.7,<3',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
