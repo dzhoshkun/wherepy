@@ -1,5 +1,7 @@
 # WherePy
 
+[![Build Status](https://travis-ci.org/dzhoshkun/wherepy.svg?branch=master)](https://travis-ci.org/dzhoshkun/wherepy)
+
 Sample application to demonstrate real-time tool tracking.
 
 ## Getting Started
