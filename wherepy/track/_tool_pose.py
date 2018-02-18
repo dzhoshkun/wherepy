@@ -6,11 +6,11 @@ from time import time
 class ToolPose(object):
     """Abstraction for timestamped tracking data of a tool."""
 
-    def __init__(self, id, quaternion, coordinates, quality, error, timestamp=time()):
+    def __init__(self, tid, quaternion, coordinates, quality, error, timestamp=time()):
         """Construct a new tool pose with given data.
 
-        :param id: a device-specific ID value for unambiguously resolving tools
-        :type id: should not be ``None``
+        :param tid: a device-specific ID value for unambiguously resolving tools
+        :type tid: should not be ``None``
         :param quaternion: together with coordinates, this makes the actual pose
         :type quaternion: quadruple, or anything that has four numeric values
         :param coordinates: together with quaternion, this makes the actual pose
@@ -25,7 +25,7 @@ class ToolPose(object):
         https://docs.python.org/2/library/time.html#time.time
         :raise ValueError: if any of the given parameters are invalid
         """
-        self.__id = id
+        self.__id = tid
         self.__quaternion = quaternion
         self.__coordinates = coordinates
         self.__quality = quality
