@@ -36,3 +36,31 @@ class ToolPose(object):
         self.__quality = quality
         self.__error = error
         self.__timestamp = timestamp
+
+    @property
+    def tid(self):
+        """Get this tool's ID."""
+        return self.__tid
+
+    @property
+    def quaternion(self):
+        """Get this tool's quaternion."""
+        return self.__quaternion
+
+    @property
+    def coordinates(self):
+        """Get this tool's coordinates."""
+        return self.__coordinates
+
+    @property
+    def quality(self):
+        """Get this pose's tracking quality, and error values.
+
+        :return: ``quality, error``
+        """
+        return self.__quality, self.__error
+
+    @property
+    def timestamp(self):
+        """Get this pose's capture timestamp."""
+        return self.__timestamp
