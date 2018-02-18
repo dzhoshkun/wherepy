@@ -43,6 +43,9 @@ class Tracker(object):
         :raise IOError: if not connected
         :raise ValueError: if `tool_id` not valid
         """
+
+        # pylint:disable=unused-argument
+
         self.__raise_not_implemented()
 
     def __raise_not_implemented(self):
