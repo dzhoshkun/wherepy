@@ -67,7 +67,7 @@ class ToolPoseTestCase(unittest.TestCase):
             ToolPose(tid=ToolPoseTestCase.valid_tid,
                      quaternion=ToolPoseTestCase.valid_quaternion,
                      coordinates=ToolPoseTestCase.valid_coordinates,
-                     quality=ToolPoseTestCase.valid_qualities[0],
+                     quality=ToolPoseTestCase.valid_quality,
                      error=None,
                      timestamp=ToolPoseTestCase.invalid_timestamp
                      )
