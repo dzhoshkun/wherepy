@@ -17,7 +17,7 @@ class SessionLog(object):
         a safety measure not to overwrite existing data
         """
         if exists(filepath):
-            raise ValueError('File {} already exists, refusing'
+            raise ValueError('Filepath {} already exists, refusing'
                              ' to overwrite!'.format(filepath))
 
         directory, filename = split(filepath)
