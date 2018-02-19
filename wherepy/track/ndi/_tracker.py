@@ -126,7 +126,7 @@ class Tracker(wherepy.track.Tracker):
         # parse obtained transformation numbers
         quaternion = list(transform[:4])
         coordinates = list(transform[4:7])
-        error = float(transform[-1])
+        error = transform[-1]
 
         # an artificial measure of quality based on a
         # maximum allowable error of 3 mm
@@ -134,9 +134,17 @@ class Tracker(wherepy.track.Tracker):
         error_min, error_max = 0.00, 3.00  # mm
         error_range = error_max - error_min
 
-        quality = quality_max * (error_max - error)
-        quality += quality_min * (error - error_min)
-        quality /= error_range
+        try:
+            error = float(transform[-1])
+        except ValueError:
+            quality, error = quality_min, float('inf')
+        else:
+            if error > error_max:
+                quality = quality_min
+            else:
+                quality = quality_max * (error_max - error)
+                quality += quality_min * (error - error_min)
+                quality /= error_range
 
         # return the actual tool pose, at long last...
         return wherepy.track.ToolPose(
