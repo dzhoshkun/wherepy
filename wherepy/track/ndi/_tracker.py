@@ -52,7 +52,12 @@ class Tracker(wherepy.track.Tracker):
         self.__connected = True
 
     def disconnect(self):
-        super(Tracker, self).disconnect()
+        if not self.connected:
+            raise IOError('Not connected to an NDI tracker')
+
+        ndiClose(self.device)
+        self.device = None
+        self.__connected = False
 
     def capture(self, tool_id):
         return super(Tracker, self).capture(tool_id)
