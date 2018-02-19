@@ -10,6 +10,8 @@ class SessionLog(object):
         :param filepath: taken as-is, with absolutely no
         manipulation
         :raise OSError: if file creation fails for any reason
+        :raise ValueError: if the file already exists, this is
+        a safety measure not to overwrite existing data
         """
         self.__filepath = filepath
 
