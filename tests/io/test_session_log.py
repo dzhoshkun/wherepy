@@ -1,7 +1,10 @@
 import unittest
 from os.path import (join, isfile)
 from uuid import uuid4
+from random import random
+from yaml import parse
 from wherepy.io import SessionLog
+from wherepy.track import ToolPose
 
 
 class SessionLogTestCase(unittest.TestCase):
@@ -9,6 +12,18 @@ class SessionLogTestCase(unittest.TestCase):
     @staticmethod
     def unique_string(length=6):
         return uuid4().hex[:length].upper()
+
+    def setUp(self):
+        self.tool_poses = []
+        for i in range(10):
+            self.tool_poses.append(
+                ToolPose(tid='tool-{}'.format(i),
+                         quaternion=[(i + 0.5) * j for j in range(4)],
+                         coordinates=[(i + 1.5) * j for j in range(3)],
+                         quality=random(),
+                         error='error: {:010.0f}'.format(i + 2.5)
+                         )
+            )
 
     def test_invalid_filepath_raises(self):
         invalid_filepath = join('this', 'should-not', 'exist', 'session.yml')
@@ -21,7 +36,26 @@ class SessionLogTestCase(unittest.TestCase):
         self.assertTrue(isfile(filepath))
 
     def test_tool_pose_appended_to_session_file(self):
-        self.__fail()
+        filepath = 'session-{}.yml'.format(SessionLogTestCase.unique_string())
+        session_log = SessionLog(filepath=filepath)
+        for tool_pose in self.tool_poses:
+            session_log.append(tool_pose)
 
-    def __fail(self):
-        self.fail('not implemented')
+        with open(filepath, 'r') as session_log_file:
+            tool_poses_yaml = parse(session_log_file)
+        for i, tool_pose in enumerate(self.tool_poses):
+            tid = tool_poses_yaml[i]['tid']
+            self.assertEqual(tool_pose.tid(), tid)
+
+            quaternion = tool_poses_yaml[i]['quaternion']
+            self.assertEqual(tool_pose.quaternion(), quaternion)
+
+            coordinates = tool_poses_yaml[i]['coordinates']
+            self.assertEqual(tool_pose.coordinates(), coordinates)
+
+            quality = tool_poses_yaml[i]['quality']
+            error = tool_poses_yaml[i]['error']
+            self.assertEqual(tool_pose.quality(), (quality, error))
+
+            timestamp = tool_poses_yaml[i]['timestamp']
+            self.assertEqual(tool_pose.timestamp(), timestamp)
