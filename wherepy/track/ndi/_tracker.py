@@ -118,7 +118,7 @@ class Tracker(wherepy.track.Tracker):
         if error != NDI_OKAY:
             raise IOError('Could not capture tool with ID {}. The error was:'
                           ' {}'.format(tool_id, ndiErrorString(error)))
-        if type(transform) == str:
+        if isinstance(transform, str):
             if transform.startswith('disabled') or transform.startswith('missing'):
                 raise ValueError('Could not capture tool with ID {}. The error was:'
                                  ' {}'.format(tool_id, transform))
