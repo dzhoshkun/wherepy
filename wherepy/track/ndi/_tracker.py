@@ -94,6 +94,10 @@ class Tracker(wherepy.track.Tracker):
         if not self.connected:
             raise IOError('Not connected to an NDI tracker')
 
+        if tool_id != self.tool_port_id:
+            raise ValueError('Tool ID {} not supported currently. Only {}'
+                             ' supported.'.format(tool_id, self.tool_port_id))
+
         command = 'GX:{:04x}'.format(NDI_XFORMS_AND_STATUS)
         ndiCommand(self.device, command)
         error = ndiGetError(self.device)
