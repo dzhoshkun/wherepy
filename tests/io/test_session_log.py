@@ -59,7 +59,7 @@ class SessionLogTestCase(unittest.TestCase):
             self.assertEqual(tool_pose.coordinates, coordinates)
 
             quality = tool_poses_yaml[i][tool_pose.tid]['quality']
-            error = tool_poses_yaml[i]['error']
+            error = tool_poses_yaml[i][tool_pose.tid]['error']
             self.assertEqual(tool_pose.quality, (quality, error))
 
             timestamp = tool_poses_yaml[i][tool_pose.tid]['timestamp']
