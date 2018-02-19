@@ -3,7 +3,8 @@
 import wherepy.track
 from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
                        ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
-                       NDI_115200, NDI_8N1, NDI_NOHANDSHAKE, ndiGetTXTransform)
+                       ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
+                       NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
 
 
 class Tracker(wherepy.track.Tracker):
@@ -87,4 +88,39 @@ class Tracker(wherepy.track.Tracker):
         self.__connected = False
 
     def capture(self, tool_id):
-        return super(Tracker, self).capture(tool_id)
+        if not self.connected:
+            raise IOError('Not connected to an NDI tracker')
+
+        command = 'GX:{:04x}'.format(NDI_XFORMS_AND_STATUS)
+        ndiCommand(self.device, command)
+        error = ndiGetError(self.device)
+        if error != NDI_OKAY:
+            raise IOError('Could not send command {} to NDI device. The error'
+                          ' was: {}'.format(command, ndiErrorString(error)))
+
+        transform = ndiGetGXTransform(self.device, str(tool_id))
+        error = ndiGetError(self.device)
+        if error != NDI_OKAY:
+            raise IOError('Could not capture tool with ID {}. The error was:'
+                          ' {}'.format(tool_id, ndiErrorString(error)))
+        if type(transform) == str:
+            if transform.startswith('disabled') or transform.startswith('missing'):
+                raise ValueError('Could not capture tool with ID {}. The error was:'
+                                 ' {}'.format(tool_id, transform))
+
+        quaternion = list(transform[:4])
+        coordinates = list(transform[4:7])
+        error = float(transform[-1])
+
+        quality_min, quality_max = 0.00, 1.00  # %
+        error_min, error_max = 0.00, 3.00  # mm
+        error_range = error_max - error_min
+
+        quality = quality_max * (error_max - error)
+        quality += quality_min * (error - error_min)
+        quality /= error_range
+
+        return wherepy.track.ToolPose(
+            tid=tool_id, quaternion=quaternion, coordinates=coordinates,
+            quality=quality, error=error,
+        )
