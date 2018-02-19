@@ -2,7 +2,7 @@ import unittest
 from os.path import (join, isfile)
 from uuid import uuid4
 from random import random
-from yaml import parse
+from yaml import load
 from wherepy.io import SessionLog
 from wherepy.track import ToolPose
 
@@ -48,7 +48,7 @@ class SessionLogTestCase(unittest.TestCase):
             session_log.append(tool_pose)
 
         with open(filepath, 'r') as session_log_file:
-            tool_poses_yaml = parse(session_log_file)
+            tool_poses_yaml = load(session_log_file)
         for i, tool_pose in enumerate(self.tool_poses):
             tid = tool_poses_yaml[i]['tid']
             self.assertEqual(tool_pose.tid, tid)
