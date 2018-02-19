@@ -1,5 +1,6 @@
 """Internal module that keeps the Tracker class for NDI devices."""
 
+from time import sleep
 import wherepy.track
 from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
                        ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
@@ -64,6 +65,8 @@ class Tracker(wherepy.track.Tracker):
 
         # okay! set connected status
         self.__connected = True
+
+        sleep(1)  # artificial, to allow for initialisation
 
     def disconnect(self):
         if not self.connected:
