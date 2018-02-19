@@ -7,13 +7,13 @@ jobs:
         - pip install pylint
         - pylint wherepy
 
-    - stage: unit tests
-      script: python -m unittest discover -s 'tests'
-
-    - stage: test deployment
+    - stage: deploy and test
       script:
         # install
         - pip install .
+        # unit tests
+        - cd tests
+        - python -m unittest discover -s .
         # test packages importable
         - python -c 'import wherepy'
         - python -c 'import wherepy.app'
