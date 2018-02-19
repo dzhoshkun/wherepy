@@ -2,7 +2,8 @@
 
 import wherepy.track
 from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
-                       ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString)
+                       ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
+                       NDI_115200, NDI_8N1, NDI_NOHANDSHAKE, ndiGetTXTransform)
 
 
 class Tracker(wherepy.track.Tracker):
@@ -14,6 +15,7 @@ class Tracker(wherepy.track.Tracker):
         """Create an instance ready for connecting."""
         super(Tracker, self).__init__()
         self.device = None
+        self.tool_port_id = 1
 
     def connect(self):
         if self.connected:
@@ -41,12 +43,23 @@ class Tracker(wherepy.track.Tracker):
             raise IOError('Could not connect to NDI device on {}'
                           ''.format(serial_port_name))
 
-        # try to start tracking
-        reply = ndiCommand(self.device, 'TSTART:')
-        error = ndiGetError(self.device)
-        if str(reply).lower().startswith('error') or error != NDI_OKAY:
-            raise IOError('Could not start tracking. The error was:'
-                          '\n{}'.format(ndiErrorString(error)))
+        commands = [
+            'INIT:',
+            'COMM:{:d}{:03d}{:d}'.format(NDI_115200, NDI_8N1, NDI_NOHANDSHAKE),
+            'PHSR:02',
+            'PINIT:{:02x}'.format(self.tool_port_id),
+            'PHSR:03',
+            'PENA:{:02x}{}'.format(self.tool_port_id, 'D'),  # other options: 'S' or 'B'
+            'PHSR:00',
+            'TSTART:',
+        ]
+        for command in commands:
+            ndiCommand(self.device, command)
+            error = ndiGetError(self.device)
+            if error != NDI_OKAY:
+                ndiClose(self.device)
+                raise IOError('Could not send command {} to NDI device. The error'
+                              ' was: {}'.format(command, ndiErrorString(error)))
 
         # okay! set connected status
         self.__connected = True
