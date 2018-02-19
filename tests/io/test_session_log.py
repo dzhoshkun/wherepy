@@ -26,7 +26,7 @@ class SessionLogTestCase(unittest.TestCase):
             )
 
     def test_invalid_filepath_raises(self):
-        invalid_filepath = join('this', 'should-not', 'exist', 'session.yml')
+        invalid_filepath = join('/', 'this', 'should-not', 'be-created', 'session.yml')
         with self.assertRaises(OSError):
             SessionLog(filepath=invalid_filepath)
 
