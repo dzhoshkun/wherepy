@@ -126,7 +126,6 @@ class Tracker(wherepy.track.Tracker):
         # parse obtained transformation numbers
         quaternion = list(transform[:4])
         coordinates = list(transform[4:7])
-        error = transform[-1]
 
         # an artificial measure of quality based on a
         # maximum allowable error of 3 mm
