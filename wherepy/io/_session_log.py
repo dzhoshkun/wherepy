@@ -20,7 +20,10 @@ class SessionLog(object):
             raise ValueError('Filepath {} already exists, refusing'
                              ' to overwrite!'.format(filepath))
 
-        directory = dirname(filepath)
+        # dirname returns empty string if filepath is just a filename
+        # ie. to be created within current directory, hence the use
+        # of "or"
+        directory = dirname(filepath) or '.'
         if not exists(directory):
             makedirs(directory)
 
