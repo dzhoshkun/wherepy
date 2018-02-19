@@ -29,8 +29,7 @@ class SessionLog(object):
                 utime(filepath, None)
         except IOError as io_error:
             raise OSError('Creation of session log file {} failed'
-                          ' due to {}'.format(filepath, io_error)
-                          )
+                          ' due to {}'.format(filepath, io_error))
 
         self.__filepath = filepath
 
