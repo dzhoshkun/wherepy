@@ -1,6 +1,6 @@
 """Internal module that keeps the SessionLog class."""
 
-from os.path import (exists, split)
+from os.path import (exists, dirname)
 from os import (utime, makedirs)
 
 
@@ -20,7 +20,7 @@ class SessionLog(object):
             raise ValueError('Filepath {} already exists, refusing'
                              ' to overwrite!'.format(filepath))
 
-        directory, filename = split(filepath)
+        directory = dirname(filepath)
         if not exists(directory):
             makedirs(directory)
 
