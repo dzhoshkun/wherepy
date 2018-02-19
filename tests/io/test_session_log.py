@@ -50,18 +50,17 @@ class SessionLogTestCase(unittest.TestCase):
         with open(filepath, 'r') as session_log_file:
             tool_poses_yaml = load(session_log_file)
         for i, tool_pose in enumerate(self.tool_poses):
-            tid = tool_poses_yaml[i]['tid']
-            self.assertEqual(tool_pose.tid, tid)
+            self.assertTrue(tool_pose.tid in tool_poses_yaml[i])
 
-            quaternion = tool_poses_yaml[i]['quaternion']
+            quaternion = tool_poses_yaml[i][tool_pose.tid]['quaternion']
             self.assertEqual(tool_pose.quaternion, quaternion)
 
-            coordinates = tool_poses_yaml[i]['coordinates']
+            coordinates = tool_poses_yaml[i][tool_pose.tid]['coordinates']
             self.assertEqual(tool_pose.coordinates, coordinates)
 
-            quality = tool_poses_yaml[i]['quality']
+            quality = tool_poses_yaml[i][tool_pose.tid]['quality']
             error = tool_poses_yaml[i]['error']
             self.assertEqual(tool_pose.quality, (quality, error))
 
-            timestamp = tool_poses_yaml[i]['timestamp']
+            timestamp = tool_poses_yaml[i][tool_pose.tid]['timestamp']
             self.assertEqual(tool_pose.timestamp, timestamp)
