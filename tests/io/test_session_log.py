@@ -64,3 +64,5 @@ class SessionLogTestCase(unittest.TestCase):
 
             timestamp = tool_poses_yaml[i][tool_pose.tid]['timestamp']
             self.assertEqual(tool_pose.timestamp, timestamp)
+
+        print(open(filepath, 'r').read())
