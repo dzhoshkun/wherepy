@@ -68,6 +68,20 @@ class Tracker(wherepy.track.Tracker):
         if not self.connected:
             raise IOError('Not connected to an NDI tracker')
 
+        commands = [
+            'TSTOP:',
+            'PHSR:04',
+            'PDIS:{:02x}'.format(self.tool_port_id),
+            'COMM:00000',
+        ]
+        for command in commands:
+            ndiCommand(self.device, command)
+            error = ndiGetError(self.device)
+            if error != NDI_OKAY:
+                ndiClose(self.device)
+                raise IOError('Could not send command {} to NDI device. The error'
+                              ' was: {}'.format(command, ndiErrorString(error)))
+
         ndiClose(self.device)
         self.device = None
         self.__connected = False
