@@ -30,6 +30,12 @@ class SessionLogTestCase(unittest.TestCase):
         with self.assertRaises(OSError):
             SessionLog(filepath=invalid_filepath)
 
+    def test_existing_file_not_overwritten(self):
+        filepath = 'session-{}.yml'.format(SessionLogTestCase.unique_string())
+        SessionLog(filepath=filepath)
+        with self.assertRaises(ValueError):
+            SessionLog(filepath=filepath)
+
     def test_session_file_created(self):
         filepath = 'session-{}.yml'.format(SessionLogTestCase.unique_string())
         SessionLog(filepath=filepath)
