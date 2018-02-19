@@ -21,7 +21,7 @@ class SessionLogTestCase(unittest.TestCase):
                          quaternion=[(i + 0.5) * j for j in range(4)],
                          coordinates=[(i + 1.5) * j for j in range(3)],
                          quality=random(),
-                         error='error: {:010.0f}'.format(i + 2.5)
+                         error='error: {:.6f}'.format(i + 2.5)
                          )
             )
 
