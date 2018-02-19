@@ -44,7 +44,7 @@ class Tracker(wherepy.track.Tracker):
         # try to start tracking
         reply = ndiCommand(self.device, 'TSTART:')
         error = ndiGetError(self.device)
-        if reply.lower().startswith('error') or error != NDI_OKAY:
+        if str(reply).lower().startswith('error') or error != NDI_OKAY:
             raise IOError('Could not start tracking. The error was:'
                           '\n{}'.format(ndiErrorString(error)))
 
