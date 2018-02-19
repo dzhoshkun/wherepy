@@ -4,6 +4,8 @@
 class Tracker(object):
     """This class is an abstraction for all supported trackers."""
 
+    NOT_IMPLEMENTED_MSG = 'To be implemented in device-linked class'
+
     def __init__(self):
         """Create an instance ready for connecting."""
         self.__connected = False
@@ -13,14 +15,14 @@ class Tracker(object):
 
         :raise IOError: if no tracking device found
         """
-        self.__raise_not_implemented()
+        raise NotImplementedError(Tracker.NOT_IMPLEMENTED_MSG)
 
     def disconnect(self):
         """Disconnect from tracking device.
 
         :raise IOError: if not connected
         """
-        self.__raise_not_implemented()
+        raise NotImplementedError(Tracker.NOT_IMPLEMENTED_MSG)
 
     @property
     def connected(self):
@@ -46,8 +48,4 @@ class Tracker(object):
 
         # pylint:disable=unused-argument
 
-        self.__raise_not_implemented()
-
-    def __raise_not_implemented(self):
-        """Internal method for unimplemented methods."""
-        raise NotImplementedError('To be implemented in device-linked class')
+        raise NotImplementedError(Tracker.NOT_IMPLEMENTED_MSG)
