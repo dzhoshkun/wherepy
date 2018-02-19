@@ -27,4 +27,7 @@ setup(
             'wherepy-collector-cli=wherepy.app:collector_cli',
         ],
     },
+    install_requires=[
+        'pyyaml',
+    ],
 )

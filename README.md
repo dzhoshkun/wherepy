@@ -11,9 +11,11 @@ Sample application to demonstrate real-time tool tracking.
 
 * [Python 2.7][python-27]
 * [ndicapi Python interface][ndicapi-py]
+* [PyYAML][pyyaml]
 
 [python-27]: https://www.python.org/
 [ndicapi-py]: https://github.com/PlusToolkit/ndicapi#python
+[pyyaml]: https://github.com/yaml/pyyaml
 
 ### Installation
 
