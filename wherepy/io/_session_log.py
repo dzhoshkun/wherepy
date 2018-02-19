@@ -54,13 +54,14 @@ class SessionLog(object):
         :type tool_pose: ToolPose
         """
         with open(self.__filepath, 'a') as session_log_file:
+            quality, error = tool_pose.quality
             yaml_dict = {
                 self.__current_index: {
                     tool_pose.tid: {
                         'quaternion': tool_pose.quaternion,
                         'coordinates': tool_pose.coordinates,
-                        'quality': tool_pose.quality,
-                        'error': tool_pose.error,
+                        'quality': quality,
+                        'error': error,
                         'timestamp': tool_pose.timestamp,
                     }
                 }
