@@ -9,7 +9,11 @@ from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
 
 
 class Tracker(wherepy.track.Tracker):
-    """This class is an abstraction for NDI trackers."""
+    """This class is an abstraction for NDI trackers.
+
+    Currently only NDI Aurora trackers with only one tool
+    plugged in are supported.
+    """
 
     SERIAL_PORTS_TO_TRY = 20
 
