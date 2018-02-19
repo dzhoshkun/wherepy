@@ -45,6 +45,7 @@ class Tracker(wherepy.track.Tracker):
             raise IOError('Could not connect to NDI device on {}'
                           ''.format(serial_port_name))
 
+        # initialise device, initialise and enable tool ports, and start tracking
         commands = [
             'INIT:',
             'COMM:{:d}{:03d}{:d}'.format(NDI_115200, NDI_8N1, NDI_NOHANDSHAKE),
@@ -72,6 +73,7 @@ class Tracker(wherepy.track.Tracker):
         if not self.connected:
             raise IOError('Not connected to an NDI tracker')
 
+        # stop tracking, disable tool ports and put device back to pristine state
         commands = [
             'TSTOP:',
             'PHSR:04',
@@ -86,7 +88,10 @@ class Tracker(wherepy.track.Tracker):
                 raise IOError('Could not send command {} to NDI device. The error'
                               ' was: {}'.format(command, ndiErrorString(error)))
 
+        # disconnect from device
         ndiClose(self.device)
+
+        # all fine, reset connected status
         self.device = None
         self.__connected = False
 
@@ -94,10 +99,12 @@ class Tracker(wherepy.track.Tracker):
         if not self.connected:
             raise IOError('Not connected to an NDI tracker')
 
+        # currently only first port of an Aurora supported
         if tool_id != self.tool_port_id:
             raise ValueError('Tool ID {} not supported currently. Only {}'
                              ' supported.'.format(tool_id, self.tool_port_id))
 
+        # send command to get tracking data
         command = 'GX:{:04x}'.format(NDI_XFORMS_AND_STATUS)
         ndiCommand(self.device, command)
         error = ndiGetError(self.device)
@@ -105,6 +112,7 @@ class Tracker(wherepy.track.Tracker):
             raise IOError('Could not send command {} to NDI device. The error'
                           ' was: {}'.format(command, ndiErrorString(error)))
 
+        # acquire transform
         transform = ndiGetGXTransform(self.device, str(tool_id))
         error = ndiGetError(self.device)
         if error != NDI_OKAY:
@@ -115,10 +123,13 @@ class Tracker(wherepy.track.Tracker):
                 raise ValueError('Could not capture tool with ID {}. The error was:'
                                  ' {}'.format(tool_id, transform))
 
+        # parse obtained transformation numbers
         quaternion = list(transform[:4])
         coordinates = list(transform[4:7])
         error = float(transform[-1])
 
+        # an artificial measure of quality based on a
+        # maximum allowable error of 3 mm
         quality_min, quality_max = 0.00, 1.00  # %
         error_min, error_max = 0.00, 3.00  # mm
         error_range = error_max - error_min
@@ -127,6 +138,7 @@ class Tracker(wherepy.track.Tracker):
         quality += quality_min * (error - error_min)
         quality /= error_range
 
+        # return the actual tool pose, at long last...
         return wherepy.track.ToolPose(
             tid=tool_id, quaternion=quaternion, coordinates=coordinates,
             quality=quality, error=error,
