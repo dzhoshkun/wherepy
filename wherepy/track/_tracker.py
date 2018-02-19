@@ -11,7 +11,7 @@ class Tracker(object):
         self.__connected = False
 
     def connect(self):
-        """Connect to tracking device.
+        """Connect to tracking device. No-op if already connected.
 
         :raise IOError: if no tracking device found
         """
@@ -20,7 +20,8 @@ class Tracker(object):
     def disconnect(self):
         """Disconnect from tracking device.
 
-        :raise IOError: if not connected
+        :raise IOError: if not connected, or if disconnection attempt
+        fails for some reason
         """
         raise NotImplementedError(Tracker.NOT_IMPLEMENTED_MSG)
 
@@ -42,7 +43,8 @@ class Tracker(object):
         """Capture a tool's pose.
 
         :rtype: ToolPose
-        :raise IOError: if not connected
+        :raise IOError: if not connected, or if capture fails
+        for any reason
         :raise ValueError: if `tool_id` not valid
         """
 
