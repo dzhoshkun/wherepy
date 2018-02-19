@@ -3,6 +3,8 @@ from os.path import (join, isfile)
 from uuid import uuid4
 from random import random
 from yaml import load
+from time import mktime
+from datetime import datetime
 from wherepy.io import SessionLog
 from wherepy.track import ToolPose
 
@@ -21,7 +23,8 @@ class SessionLogTestCase(unittest.TestCase):
                          quaternion=[(i + 0.5) * j for j in range(4)],
                          coordinates=[(i + 1.5) * j for j in range(3)],
                          quality=random(),
-                         error='error: {:.6f}'.format(i + 2.5)
+                         error='error: {:.6f}'.format(i + 2.5),
+                         timestamp=mktime(datetime(2010 + i, i + 1, i + 2).timetuple())
                          )
             )
 
