@@ -55,7 +55,7 @@ This will display a live tracking quality indicator like the following samples:
 #### Tracking data collection
 
 Run `wherepy-collector-cli --help` to see the tracking data collection options.
-For instance `wherepy-collector-cli --num-measurements 5 --output-file tool-poses.yml` to capture the tracking tool's 
+For instance `wherepy-collector-cli --num-poses 5 --output-file tool-poses.yml` to capture the tracking tool's 
 poses at 5 points in time into the file `tool-poses.yml`.
 
 ## Licensing and Copyright
