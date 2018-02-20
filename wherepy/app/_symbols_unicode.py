@@ -4,7 +4,7 @@
 
 INDICATOR_SYMBOLS = {
     'connection_status': {
-        'connected': '✓',  # u'\u2713'
-        'not connected': '✗',  # u'\u2717'
+        'connected': '[✓]',  # u'\u2713'
+        'not connected': '[✗]',  # u'\u2717'
     },
 }
