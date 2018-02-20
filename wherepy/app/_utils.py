@@ -12,16 +12,17 @@ def check_positive_int(value):
     """
 
     try:
-        if value != int(value):
+        _value = int(value)
+        if _value != float(value):
             raise ArgumentTypeError('{} is not an integer'.format(value))
     except ValueError as value_error:
         raise ArgumentTypeError('{} is not an integer (detailed error: {})'
                                 ''.format(value, value_error))
 
-    if value <= 0:
+    if _value <= 0:
         raise ArgumentTypeError('{} is not a positive integer'.format(value))
 
-    return value
+    return _value
 
 
 def check_non_existing(path):
