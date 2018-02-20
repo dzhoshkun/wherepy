@@ -37,20 +37,29 @@ This will display a live tracking quality indicator like the following samples:
 * Device connected, signal quality 54 %, tracking error 1.54 mm, and an info message:
 
 ```
-| Device [✓] | Signal [====>     ] 54 % | Error  1.54 mm  | info message here.       |
+|  Device  |       Signal      |   Error   |           Info           |
+-----------------------------------------------------------------------
+    LIVE     [====>     ] 54 %    1.54 mm        info message here
 ```
 
 * Device connected, but low-quality signal, no tracking error reported:
 
 ```
-| Device [✓] | Signal [          ]  0 % | Error     ~     |
+|  Device  |       Signal      |   Error   |           Info           |
+-----------------------------------------------------------------------
+    LIVE     [          ]  0 %       ~
 ```
 
 * Device not connected, tracking error not applicable:
 
 ```
-| Device [✗] | Signal [          ]  0 % | Error    NA     |
+|  Device  |       Signal      |   Error   |           Info           |
+-----------------------------------------------------------------------
+  OFFLINE    [          ]  0 %       NA
 ```
+
+Running `wherepy-indicator-cli` with the `--pretty` option displays a nicer output, but may not be supported on all 
+platforms.
 
 #### Tracking data collection
 
