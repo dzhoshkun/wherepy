@@ -23,6 +23,3 @@ jobs:
         - python -c 'import wherepy.io'
         - python -c 'from wherepy.track import Tracker'
         - python -c 'from wherepy.track import ToolPose'
-        # test console scripts callable
-        - wherepy-collector-gui --help
-        - wherepy-collector-cli --help
