@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """Internal module that keeps the live tracking quality indicator
 functionality.
 
@@ -9,10 +7,8 @@ from time import sleep
 from sys import stdout
 
 
-def display_status(connected, quality=None, error=None, msg=None):
-    """Display status of tracking data in the following format:
-    | Device [✓] | Signal [=====     ] 54 % | Error  1.54 mm  | info message here.       |
-    | Device [✗] | Signal [          ]  0 % | Error     ~     |
+def display_status(connected, quality=None, error=None, msg=None, utf=False):
+    """Display status of tracking data on the CLI.
 
     :param connected: whether a tracking device is connected
     :type connected: bool
@@ -22,12 +18,21 @@ def display_status(connected, quality=None, error=None, msg=None):
     :type error: float (mm)
     :param msg: an optional info message
     :type msg: str
+    :param utf: whether to use Unicode symbols
     """
+
     status = ''
-    if connected:
-        connection_status = '✓'  # u'\u2713'
+
+    if utf:
+        import _symbols_unicode
+        symbols = _symbols_unicode.INDICATOR_SYMBOLS
     else:
-        connection_status = '✗'  # u'\u2717'
+        import _symbols_ascii
+        symbols = _symbols_ascii.INDICATOR_SYMBOLS
+    if connected:
+        connection_status = symbols['connection_status']['connected']
+    else:
+        connection_status = symbols['connection_status']['not connected']
     connection_status = 'Device [{}]'.format(connection_status).center(14)
     status += '|{}'.format(connection_status)
 
