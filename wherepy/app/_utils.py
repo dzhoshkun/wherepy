@@ -9,3 +9,13 @@ def check_positive_int_or_raise(value):
     """
 
     pass
+
+
+def check_non_existing_file_or_raise(path):
+    """Check passed path is a non-existing file path.
+
+    :return: path if it passes the check
+    :raises ArgumentTypeError: if passed value already exists
+    """
+
+    pass
