@@ -59,7 +59,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     else:
         connection_status = symbols['connection_status']['not connected']
     connection_status = '[{}]'.format(connection_status).center(widths[0] + 1)
-    status += '|{}'.format(connection_status)
+    status += '{}'.format(connection_status)
 
     total_bars = 10
     quality_bars = 0
