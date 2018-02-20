@@ -6,6 +6,8 @@ functionality.
 from time import sleep
 from sys import stdout
 
+WIDTHS = None
+
 
 def display_status(connected, quality=None, error=None, msg=None, utf=False):
     """Display status of tracking data on the CLI.
@@ -21,6 +23,18 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     :param utf: whether to use Unicode symbols
     """
 
+    global WIDTHS
+    if not WIDTHS:
+        WIDTHS = [10, 19, 11, 26]
+        header = '|{}'.format('Device'.center(WIDTHS[0]))
+        header += '|{}'.format('Signal'.center(WIDTHS[1]))
+        header += '|{}'.format('Error'.center(WIDTHS[2]))
+        header += '|{}|'.format('Info'.center(WIDTHS[3]))
+        stdout.write('{}\n'.format(header))
+
+        separator = '-' * (sum(WIDTHS) + (1 + len(WIDTHS)))
+        stdout.write('{}\n'.format(separator))
+
     status = ''
 
     if utf:
@@ -33,7 +47,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
         connection_status = symbols['connection_status']['connected']
     else:
         connection_status = symbols['connection_status']['not connected']
-    connection_status = 'Device [{}]'.format(connection_status).center(14)
+    connection_status = '[{}]'.format(connection_status).center(WIDTHS[0] + 1)
     status += '|{}'.format(connection_status)
 
     total_bars = 10
@@ -49,8 +63,9 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     signal_status = '=' * quality_bars
     signal_status += arrow
     signal_status += ' ' * space_bars
-    signal_status = 'Signal [{}] {:2d} %'.format(signal_status, int(100 * quality)).center(26)
-    status += '|{}'.format(signal_status)
+    signal_status = '[{}] {:2d} %'.format(
+        signal_status, int(100 * quality)).center(WIDTHS[1] + 1)
+    status += '{}'.format(signal_status)
 
     error_status = 'NA'
     if error:
@@ -58,11 +73,11 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
             error_status = '  ~  '
         else:
             error_status = '{:.2f} mm'.format(error)
-    error_status = 'Error {}'.format(error_status.center(9)).center(17)
-    status += '|{}|'.format(error_status)
+    error_status = '{}'.format(error_status.center(9)).center(WIDTHS[2] + 1)
+    status += '{}'.format(error_status)
 
     if msg:
-        status += ' {} |'.format(msg[:24]).ljust(24)
+        status += '{}'.format(msg[:WIDTHS[3] - 1]).center(WIDTHS[3] + 1)
     else:
         status += ' ' * 27
 
