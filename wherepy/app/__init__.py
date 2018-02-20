@@ -24,4 +24,4 @@ def indicator_cli():
     """Live CLI tracking quality and error indicator."""
 
     tracker = Tracker()
-    run_indicator_cli(tracker=tracker)
+    run_indicator_cli(tracker=tracker, update_rate=3)
