@@ -14,8 +14,6 @@ jobs:
         # unit tests
         - cd tests
         - python -m unittest discover -s .
-        # dummy module as we cannot install pyndicapi on Travis
-        - touch pyndicapi.py
         # test packages importable
         - python -c 'import wherepy'
         - python -c 'import wherepy.gui'
