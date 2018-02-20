@@ -1,6 +1,5 @@
 """Functions that implement the functionality of console scripts."""
 from wherepy.track.ndi import Tracker
-from ._collector import Collector
 from ._indicator import run_indicator_cli
 
 
@@ -9,7 +8,7 @@ def collector_cli():
 
     # pylint:disable=unused-variable
 
-    collector = Collector(graphical=False)
+    pass
 
 
 def indicator_cli():
