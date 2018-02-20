@@ -3,7 +3,7 @@
 from argparse import ArgumentParser
 from wherepy.track.ndi import Tracker
 from wherepy.io import SessionLog
-from ._utils import (check_positive_int_or_raise, check_non_existing_file_or_raise)
+from ._utils import (check_positive_int_or_raise, check_non_existing)
 from ._indicator import run_indicator_cli
 from ._collector import collect_n_poses_cli
 
@@ -16,7 +16,7 @@ def collector_cli():
                         type=check_positive_int_or_raise,
                         metavar='N', required=True)
     parser.add_argument('-o', '--session-log', help='Where to save captured poses',
-                        type=check_non_existing_file_or_raise,
+                        type=check_non_existing,
                         metavar='FILE', required=True)
 
     args = parser.parse_args()

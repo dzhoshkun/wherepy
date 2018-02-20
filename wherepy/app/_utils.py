@@ -24,7 +24,7 @@ def check_positive_int_or_raise(value):
     return value
 
 
-def check_non_existing_file_or_raise(path):
+def check_non_existing(path):
     """Check passed path is a non-existing file path.
 
     :return: path if it passes the check
