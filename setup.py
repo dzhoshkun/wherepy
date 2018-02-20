@@ -2,7 +2,7 @@ from setuptools import (setup, find_packages)
 
 setup(
     name='WherePy',
-    version='0.1.0.dev0',
+    version='0.1.0',
     description='Sample application to demonstrate real-time tool tracking',
     url='https://github.com/dzhoshkun/wherepy',
     author='Dzhoshkun Ismail Shakir',
