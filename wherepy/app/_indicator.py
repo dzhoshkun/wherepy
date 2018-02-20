@@ -82,7 +82,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
         signal_status, int(100 * quality)).center(widths[1] + 1)
     status += ' {}'.format(signal_status)
 
-    error_status = 'NA'
+    error_status = 'NA '
     if error:
         if error == float('inf'):
             error_status = '  ~  '
