@@ -3,6 +3,7 @@
 from argparse import ArgumentParser
 from wherepy.track.ndi import Tracker
 from wherepy.io import SessionLog
+from sys import exit
 from ._utils import (check_positive_int_or_raise, check_non_existing_file_or_raise)
 from ._indicator import run_indicator_cli
 from ._collector import collect_n_poses_cli
@@ -23,7 +24,8 @@ def collector_cli():
 
     tracker = Tracker()
     session_log = SessionLog(args.session_log)
-    collect_n_poses_cli(tracker=tracker, num_poses=args.num_poses, session_log=session_log)
+    if not collect_n_poses_cli(tracker=tracker, num_poses=args.num_poses, session_log=session_log):
+        exit(1)
 
 
 def indicator_cli():
