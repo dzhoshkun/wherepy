@@ -1,5 +1,7 @@
 """Functions that implement the functionality of console scripts."""
+from wherepy.track.ndi import Tracker
 from ._collector import Collector
+from ._indicator import run_indicator_cli
 
 
 def collector_gui():
@@ -16,3 +18,10 @@ def collector_cli():
     # pylint:disable=unused-variable
 
     collector = Collector(graphical=False)
+
+
+def indicator_cli():
+    """Live CLI tracking quality and error indicator."""
+
+    tracker = Tracker()
+    run_indicator_cli(tracker=tracker, update_rate=3)

@@ -16,11 +16,7 @@ jobs:
         - python -m unittest discover -s .
         # test packages importable
         - python -c 'import wherepy'
-        - python -c 'import wherepy.app'
         - python -c 'import wherepy.gui'
         - python -c 'import wherepy.io'
         - python -c 'from wherepy.track import Tracker'
         - python -c 'from wherepy.track import ToolPose'
-        # test console scripts callable
-        - wherepy-collector-gui --help
-        - wherepy-collector-cli --help
