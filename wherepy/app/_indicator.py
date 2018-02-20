@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Internal module that keeps the live tracking quality indicator
 functionality.
 
@@ -9,8 +11,8 @@ from sys import stdout
 
 def display_status(connected, quality=None, error=None, msg=None):
     """Display status of tracking data in the following format:
-    | Device [OK] | Signal [=====     ] 54 % | Error  1.54 mm  | info message here.       |
-    | Device [XX] | Signal [          ]  0 % | Error     ~     |
+    | Device [✓] | Signal [=====     ] 54 % | Error  1.54 mm  | info message here.       |
+    | Device [✗] | Signal [          ]  0 % | Error     ~     |
 
     :param connected: whether a tracking device is connected
     :type connected: bool
@@ -23,10 +25,10 @@ def display_status(connected, quality=None, error=None, msg=None):
     """
     status = ''
     if connected:
-        connection_status = 'OK'
+        connection_status = '✓'  # u'\u2713'
     else:
-        connection_status = 'XX'
-    connection_status = 'Device [{}]'.format(connection_status).center(15)
+        connection_status = '✗'  # u'\u2717'
+    connection_status = 'Device [{}]'.format(connection_status).center(14)
     status += '|{}'.format(connection_status)
 
     total_bars = 10
