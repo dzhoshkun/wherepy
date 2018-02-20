@@ -45,7 +45,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     widths = get_field_widths()
     status = ''
 
-    # pylint:disable=relative-import
+    # pylint:disable=relative-import,too-many-locals
     if utf:
         import _symbols_unicode
         symbols = _symbols_unicode.INDICATOR_SYMBOLS
