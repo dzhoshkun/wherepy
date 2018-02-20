@@ -96,7 +96,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     stdout.flush()
 
 
-def run_indicator_cli(tracker, update_rate=10):
+def run_indicator_cli(tracker, update_rate=10, utf=False):
     """Run live CLI quality indicator of passed tracker at desired
     update rate.
 
@@ -104,6 +104,7 @@ def run_indicator_cli(tracker, update_rate=10):
     :type tracker: Tracker
     :param update_rate: update rate in Hz
     :type update_rate: int
+    :param utf: whether to use Unicode symbols
     """
     update_interval = 1.0 / update_rate
 
@@ -132,5 +133,5 @@ def run_indicator_cli(tracker, update_rate=10):
             else:
                 quality, error = tool_pose.quality
 
-        display_status(tracker.connected, quality, error, msg)
+        display_status(tracker.connected, quality, error, msg, utf)
         sleep(update_interval)
