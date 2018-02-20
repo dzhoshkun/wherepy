@@ -37,6 +37,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
 
     status = ''
 
+    # pylint:disable=relative-import
     if utf:
         import _symbols_unicode
         symbols = _symbols_unicode.INDICATOR_SYMBOLS
