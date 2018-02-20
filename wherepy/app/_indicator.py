@@ -58,7 +58,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
         connection_status = symbols['connection_status']['connected']
     else:
         connection_status = symbols['connection_status']['not connected']
-    connection_status = '[{}]'.format(connection_status).center(widths[0] + 1)
+    connection_status = '{}'.format(connection_status).center(widths[0] + 1)
     if utf:
         status += '  '
     status += '{}'.format(connection_status)
