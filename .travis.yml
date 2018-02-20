@@ -18,7 +18,6 @@ jobs:
         - touch pyndicapi.py
         # test packages importable
         - python -c 'import wherepy'
-        - python -c 'import wherepy.app'
         - python -c 'import wherepy.gui'
         - python -c 'import wherepy.io'
         - python -c 'from wherepy.track import Tracker'
