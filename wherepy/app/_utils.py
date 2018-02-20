@@ -1,6 +1,7 @@
 """Internal module that keeps utils to be used by console scripts."""
 
 from argparse import ArgumentTypeError
+from os.path import exists
 
 
 def check_positive_int_or_raise(value):
@@ -30,4 +31,7 @@ def check_non_existing_file_or_raise(path):
     :raises ArgumentTypeError: if passed value already exists
     """
 
-    pass
+    if exists(path):
+        raise ArgumentTypeError('{} already exists'.format(path))
+
+    return path
