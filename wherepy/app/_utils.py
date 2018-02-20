@@ -4,7 +4,7 @@ from argparse import ArgumentTypeError
 from os.path import exists
 
 
-def check_positive_int_or_raise(value):
+def check_positive_int(value):
     """Check passed value is a positive integer.
 
     :return: value if it passes the check
