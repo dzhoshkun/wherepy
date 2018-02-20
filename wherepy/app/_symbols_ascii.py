@@ -2,7 +2,7 @@
 
 INDICATOR_SYMBOLS = {
     'connection_status': {
-        'connected': 'OK',
-        'not connected': 'XX',
+        'connected': '*',
+        'not connected': '?',
     },
 }
