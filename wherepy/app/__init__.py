@@ -30,5 +30,11 @@ def collector_cli():
 def indicator_cli():
     """Live CLI tracking quality and error indicator."""
 
+    parser = ArgumentParser()
+    parser.add_argument('--pretty', help='Pretty formatting (uses Unicode characters)',
+                        action='store_true')
+
+    args = parser.parse_args()
+
     tracker = Tracker()
-    run_indicator_cli(tracker=tracker, update_rate=3)
+    run_indicator_cli(tracker=tracker, update_rate=3, utf=args.pretty)
