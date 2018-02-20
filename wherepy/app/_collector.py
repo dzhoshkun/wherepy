@@ -17,6 +17,8 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
     :type session_log: SessionLog
     :param update_rate: update rate in Hz
     :type update_rate: int
+    :return: ``True`` if collection of at least specified number of poses
+    succeeds, ``False`` otherwise
     """
 
     update_interval = 1.0 / update_rate
@@ -58,6 +60,10 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
 
     if captured == 0:
         logging.error('Could not collect any poses')
+        return False
 
     if captured < num_poses:
         logging.error('Could collect only {} poses'.format(captured))
+        return False
+
+    return True
