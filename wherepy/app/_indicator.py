@@ -92,7 +92,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     if msg:
         status += ' {}'.format(msg[:widths[3] - 1]).center(widths[3] + 1)
     else:
-        status += ' ' * 27
+        status += ' ' * (widths[3] + 1)
 
     stdout.write('{}\r'.format(status))
     stdout.flush()
