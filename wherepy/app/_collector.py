@@ -1,6 +1,7 @@
 """This internal module keeps elements related to tracking data collection."""
 
 from time import sleep
+import logging
 
 
 def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
@@ -24,17 +25,21 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
     for _ in range(3 * num_poses):
         if not tracker.connected:
             try:
+                logging.info('Attempting to connect to device')
                 tracker.connect()
-            except IOError:
-                pass
+            except IOError as io_error:
+                logging.error('Could not connect to device. The'
+                              ' error was {}'.format(io_error))
 
         if tracker.connected:
             try:
                 tool_pose = tracker.capture(tool_id=1)
-            except IOError:
-                pass
-            except ValueError:
-                pass
+            except IOError as io_error:
+                logging.error('Could not obtain tool pose. The'
+                              ' error was {}'.format(io_error))
+            except ValueError as value_error:
+                logging.error('Could not obtain tool pose. The'
+                              ' error was {}'.format(value_error))
             else:
                 session_log.append(tool_pose)
                 captured += 1
@@ -47,5 +52,12 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
     if tracker.connected:
         try:
             tracker.disconnect()
-        except IOError:
-            pass
+        except IOError as io_error:
+            logging.error('Could not disconnect from device. The'
+                          ' error was {}'.format(io_error))
+
+    if captured == 0:
+        logging.error('Could not collect any poses')
+
+    if captured < num_poses:
+        logging.error('Could collect only {} poses'.format(captured))
