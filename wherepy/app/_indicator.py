@@ -73,6 +73,8 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
         if quality_bars - 1 > 0:
             quality_bars -= 1
             arrow = '>'
+    else:
+        quality = 0.0
     signal_status = '=' * quality_bars
     signal_status += arrow
     signal_status += ' ' * space_bars
