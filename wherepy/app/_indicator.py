@@ -92,7 +92,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     status += ' {}'.format(error_status)
 
     if msg:
-        status += ' {}'.format(msg[:widths[3] - 1]).center(widths[3] + 1)
+        status += ' {}'.format(msg[:widths[3] - 2]).center(widths[3])
     else:
         status += ' ' * (widths[3] + 1)
 
