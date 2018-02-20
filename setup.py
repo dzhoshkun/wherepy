@@ -23,7 +23,6 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     entry_points={
         'console_scripts': [
-            'wherepy-collector-gui=wherepy.app:collector_gui',
             'wherepy-collector-cli=wherepy.app:collector_cli',
             'wherepy-indicator-cli=wherepy.app:indicator_cli',
         ],
