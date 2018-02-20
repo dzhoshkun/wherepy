@@ -23,6 +23,37 @@ Sample application to demonstrate real-time tool tracking.
 
 ### Usage
 
+#### Supported tracking systems
+
+Currently [NDI Aurora][ndi-aurora] only.
+
+[ndi-aurora]: https://www.ndigital.com/medical/products/aurora/
+
+#### Tracking quality indicator
+
+Run: `wherepy-indicator-cli`.
+This will display a live tracking quality indicator like the following samples:
+
+* Device connected, signal quality 54 %, tracking error 1.54 mm, and an info message:
+
+```
+| Device [✓] | Signal [====>     ] 54 % | Error  1.54 mm  | info message here.       |
+```
+
+* Device connected, but low-quality signal, no tracking error reported:
+
+```
+| Device [✓] | Signal [          ]  0 % | Error     ~     |
+```
+
+* Device not connected, tracking error not applicable:
+
+```
+| Device [✗] | Signal [          ]  0 % | Error    NA     |
+```
+
+#### Tracking data acquisition
+
 Under construction.
 
 ## Licensing and Copyright
