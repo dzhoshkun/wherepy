@@ -59,6 +59,8 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     else:
         connection_status = symbols['connection_status']['not connected']
     connection_status = '[{}]'.format(connection_status).center(widths[0] + 1)
+    if utf:
+        status += '  '
     status += '{}'.format(connection_status)
 
     total_bars = 10
@@ -76,7 +78,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     signal_status += ' ' * space_bars
     signal_status = '[{}] {:2d} %'.format(
         signal_status, int(100 * quality)).center(widths[1] + 1)
-    status += '{}'.format(signal_status)
+    status += ' {}'.format(signal_status)
 
     error_status = 'NA'
     if error:
@@ -85,10 +87,10 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
         else:
             error_status = '{:.2f} mm'.format(error)
     error_status = '{}'.format(error_status.center(9)).center(widths[2] + 1)
-    status += '{}'.format(error_status)
+    status += ' {}'.format(error_status)
 
     if msg:
-        status += '{}'.format(msg[:widths[3] - 1]).center(widths[3] + 1)
+        status += ' {}'.format(msg[:widths[3] - 1]).center(widths[3] + 1)
     else:
         status += ' ' * 27
 
