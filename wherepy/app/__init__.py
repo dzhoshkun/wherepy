@@ -3,7 +3,6 @@
 from argparse import ArgumentParser
 from wherepy.track.ndi import Tracker
 from wherepy.io import SessionLog
-from sys import exit
 from ._utils import (check_positive_int_or_raise, check_non_existing_file_or_raise)
 from ._indicator import run_indicator_cli
 from ._collector import collect_n_poses_cli
