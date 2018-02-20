@@ -1,7 +1,7 @@
 """Functions that implement the functionality of console scripts."""
+from wherepy.track.ndi import Tracker
 from ._collector import Collector
 from ._indicator import run_indicator_cli
-from wherepy.track.ndi import Tracker
 
 
 def collector_gui():
