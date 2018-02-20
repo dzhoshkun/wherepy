@@ -7,17 +7,6 @@ from time import sleep
 from sys import stdout
 
 
-def compose_indicator(filled, bar, msg=None):
-    if msg:
-        status = msg
-    else:
-        num_bars = int(filled / 0.1)
-        num_spaces = 10 - num_bars
-        status = bar * num_bars
-        status += ' ' * num_spaces
-    return '|{}|'.format(status)
-
-
 def display_status(connected, quality=None, error=None, msg=None):
     """Display status of tracking data in the following format:
     | Device [OK] | Signal [=====     ] 54 % | Error  1.54 mm  | info message here.       |
@@ -84,39 +73,29 @@ def run_indicator_cli(tracker, update_rate=10):
     :type update_rate: int
     """
     update_interval = 1.0 / update_rate
-    try:
-        tracker.connect()
-    except IOError:
-        pass
+
     while True:
+        quality = None
+        error = None
+        msg = None
+
         if not tracker.connected:
-            quality = None
-            error = None
-            msg = 'NO CONNECTION'
-        else:
+            try:
+                tracker.connect()
+            except IOError:
+                pass
+
+        if tracker.connected:
             try:
                 tool_pose = tracker.capture(tool_id=1)
             except IOError:
                 quality = 0.0
                 error = float('inf')
-                msg = 'OUT-OF-VOLUME'
+                msg = 'Out of tracking volume?'
             except ValueError:
-                quality = None
-                error = None
-                msg = 'UNSUPPORTED TOOL'
+                msg = 'Unsupported tool'
             else:
                 quality, error = tool_pose.quality
-                msg = None
 
-        status = ''
-
-        status += 'Signal:  '
-        status += compose_indicator(quality, '>', msg)
-        status += '  {:5d} %\n'.format(int(100 * quality))
-
-        status += 'Error:   '
-        status += compose_indicator(1 - quality, '<', msg)
-        status += '  {:5.2f} mm\n'.format(error)
-
-        print(status)
+        display_status(tracker.connected, quality, error, msg)
         sleep(update_interval)
