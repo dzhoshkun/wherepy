@@ -4,6 +4,7 @@ functionality.
 """
 
 # pylint:disable=too-many-locals
+# pylint:disable=too-many-branches
 
 from time import sleep
 from sys import stdout
@@ -48,7 +49,6 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     status = ''
 
     # pylint:disable=relative-import
-    # pylint:disable=too-many-branches
     if utf:
         import _symbols_unicode
         symbols = _symbols_unicode.INDICATOR_SYMBOLS
