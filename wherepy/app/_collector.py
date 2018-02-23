@@ -33,6 +33,8 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=Fal
         if not tracker.connected:
             try:
                 msg = 'Attempting to connect to device'
+                display_status(tracker.connected, quality, error, msg, utf)
+
                 tracker.connect()
             except IOError as io_error:
                 msg = 'Could not connect to device. The' +\
