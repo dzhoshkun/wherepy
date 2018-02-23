@@ -45,7 +45,7 @@ class Tracker(wherepy.track.Tracker):
 
         # compute the corresponding quality, based on an artificial
         # 0.8 mm maximum allowable error
-        quality = wherepy.track.utils.quality(error, 0.8)
+        quality = wherepy.track.utils.quality(error, 0.8, 0.1)
 
         # return a tool pose with the generated values
         return wherepy.track.ToolPose(
