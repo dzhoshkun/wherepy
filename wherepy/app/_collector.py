@@ -38,18 +38,15 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=Fal
 
                 tracker.connect()
             except IOError as io_error:
-                msg = 'Could not connect to device. The' +\
-                      ' error was: {}'.format(io_error)
+                msg = 'Could not connect ({})'.format(io_error)
 
         if tracker.connected:
             try:
                 tool_pose = tracker.capture(tool_id=1)
             except IOError as io_error:
-                msg = 'Could not obtain tool pose. The' +\
-                      ' error was: {}'.format(io_error)
+                msg = 'Could not obtain pose ({})'.format(io_error)
             except ValueError as value_error:
-                msg = 'Could not obtain tool pose. The' +\
-                      ' error was: {}'.format(value_error)
+                msg = 'Could not obtain pose ({})'.format(value_error)
             else:
                 session_log.append(tool_pose)
                 captured += 1
@@ -69,8 +66,7 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=Fal
         try:
             tracker.disconnect()
         except IOError as io_error:
-            msg = 'Could not disconnect from device. The' +\
-                  ' error was: {}'.format(io_error)
+            msg = 'Could not disconnect ({})'.format(io_error)
 
     if captured == 0:
         msg = 'Could not collect any poses'
