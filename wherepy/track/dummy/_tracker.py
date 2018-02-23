@@ -8,10 +8,6 @@ import wherepy.track
 class Tracker(wherepy.track.Tracker):
     """This class generates random tracking data."""
 
-    def __init__(self):
-        """Create an instance ready for connecting."""
-        super(Tracker, self).__init__()
-
     def connect(self):
         if self.connected:
             return
