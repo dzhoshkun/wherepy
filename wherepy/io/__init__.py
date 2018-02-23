@@ -10,7 +10,7 @@ from ._session_log import SessionLog
 def get_field_widths():
     """Get a list of the width of all status fields."""
 
-    return [10, 19, 11, 26]
+    return [10, 19, 11, 36]
 
 
 def display_header():
