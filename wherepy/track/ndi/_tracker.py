@@ -122,32 +122,17 @@ class Tracker(wherepy.track.Tracker):
         if error != NDI_OKAY:
             raise IOError('Could not capture tool with ID {}. The error was:'
                           ' {}'.format(tool_id, ndiErrorString(error)))
-        if isinstance(transform, str):
-            if transform.startswith('disabled') or transform.startswith('missing'):
-                raise ValueError('Could not capture tool with ID {}. The error was:'
-                                 ' {}'.format(tool_id, transform))
 
         # parse obtained transformation numbers
-        quaternion = list(transform[:4])
-        coordinates = list(transform[4:7])
-
-        # an artificial measure of quality based on a
-        # maximum allowable error of 3 mm
-        quality_min, quality_max = 0.00, 1.00  # %
-        error_min, error_max = 0.00, 3.00  # mm
-        error_range = error_max - error_min
-
         try:
+            quaternion = [float(value) for value in transform[:4]]
+            coordinates = [float(value) for value in transform[4:7]]
             error = float(transform[-1])
         except ValueError:
-            quality, error = quality_min, float('inf')
-        else:
-            if error > error_max:
-                quality = quality_min
-            else:
-                quality = quality_max * (error_max - error)
-                quality += quality_min * (error - error_min)
-                quality /= error_range
+            raise IOError('Could not parse returned data of tool with ID {}. The'
+                          ' data was: {}'.format(tool_id, transform))
+
+        quality = wherepy.track.utils.quality(error, 3.00, 0.00)
 
         # return the actual tool pose, at long last...
         return wherepy.track.ToolPose(
