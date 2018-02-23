@@ -1,7 +1,8 @@
 """Functions that implement the functionality of console scripts."""
 
 from argparse import ArgumentParser
-from wherepy.track.ndi import Tracker
+import wherepy.track.ndi
+import wherepy.track.dummy
 from wherepy.io import SessionLog
 from ._utils import (check_positive_int, check_non_existing)
 from ._indicator import run_indicator_cli
@@ -23,7 +24,10 @@ def collector_cli():
 
     args = parser.parse_args()
 
-    tracker = Tracker()
+    if args.dry_run:
+        tracker = wherepy.track.dummy.Tracker()
+    else:
+        tracker = wherepy.track.ndi.Tracker()
     session_log = SessionLog(args.session_log)
     if not collect_n_poses_cli(tracker=tracker, num_poses=args.num_poses, session_log=session_log):
         exit(1)
