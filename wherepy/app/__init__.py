@@ -18,6 +18,8 @@ def collector_cli():
     parser.add_argument('-o', '--session-log', help='Where to save captured poses',
                         type=check_non_existing,
                         metavar='FILE', required=True)
+    parser.add_argument('-d', '--dry-run', help='Dry-run, useful for offline testing',
+                        action='store_true')
 
     args = parser.parse_args()
 
