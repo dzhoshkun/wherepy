@@ -3,6 +3,8 @@
 from time import sleep
 from wherepy.io import (display_header, display_status)
 
+# pylint:disable=too-many-branches
+
 
 def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=False):
     """Start passed tracker, collect specified number of poses, and stop it.
