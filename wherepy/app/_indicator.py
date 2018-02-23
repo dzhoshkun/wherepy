@@ -3,9 +3,6 @@ functionality.
 
 """
 
-# pylint:disable=too-many-locals
-# pylint:disable=too-many-branches
-
 from time import sleep
 from wherepy.io import (display_header, display_status)
 

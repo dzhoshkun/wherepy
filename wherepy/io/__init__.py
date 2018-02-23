@@ -1,5 +1,8 @@
 """IO utilities."""
 
+# pylint:disable=too-many-locals
+# pylint:disable=too-many-branches
+
 from sys import stdout
 from ._session_log import SessionLog
 
