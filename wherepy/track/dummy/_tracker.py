@@ -33,7 +33,7 @@ class Tracker(wherepy.track.Tracker):
         norm = reduce(lambda value_1, value_2: value_1 + value_2,
                       map(lambda value: pow(value, 2), quaternion))
         norm = sqrt(norm)
-        quaternion = list(map(lambda value: value / norm, quaternion))
+        quaternion = [value / norm for value in quaternion]
 
         # generate a random transform in a hypothetical
         # tracking volume of 1 m3
