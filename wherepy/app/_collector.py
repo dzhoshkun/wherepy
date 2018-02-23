@@ -1,7 +1,6 @@
 """This internal module keeps elements related to tracking data collection."""
 
 from time import sleep
-import logging
 from wherepy.io import (display_header, display_status)
 
 
@@ -68,15 +67,15 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=Fal
         try:
             tracker.disconnect()
         except IOError as io_error:
-            logging.error('Could not disconnect from device. The'
-                          ' error was %s', io_error)
+            msg = 'Could not disconnect from device. The' +\
+                  ' error was: {}'.format(io_error)
 
     if captured == 0:
-        logging.error('Could not collect any poses')
-        return False
+        msg = 'Could not collect any poses'
 
     if captured < num_poses:
-        logging.error('Could collect only %d poses', captured)
-        return False
+        msg = 'Could collect only {} poses'.format(captured)
 
-    return True
+    display_status(tracker.connected, quality, error, msg, utf)
+
+    return captured >= num_poses
