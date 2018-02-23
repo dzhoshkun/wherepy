@@ -7,6 +7,7 @@ functionality.
 # pylint:disable=too-many-branches
 
 from time import sleep
+from wherepy.io import (display_header, display_status)
 
 
 def run_indicator_cli(tracker, update_rate=10, utf=False):
