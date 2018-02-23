@@ -2,6 +2,7 @@
 
 from time import sleep
 import logging
+from wherepy.io import (display_header, display_status)
 
 
 def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
@@ -23,28 +24,36 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
 
     update_interval = 1.0 / update_rate
 
+    display_header()
+
     captured = 0
     for _ in range(3 * num_poses):
+        quality, error = None, None
         if not tracker.connected:
             try:
-                logging.info('Attempting to connect to device')
+                msg = 'Attempting to connect to device'
                 tracker.connect()
             except IOError as io_error:
-                logging.error('Could not connect to device. The'
-                              ' error was %s', io_error)
+                msg = 'Could not connect to device. The' +\
+                      ' error was: {}'.format(io_error)
 
         if tracker.connected:
             try:
                 tool_pose = tracker.capture(tool_id=1)
             except IOError as io_error:
-                logging.error('Could not obtain tool pose. The'
-                              ' error was %s', io_error)
+                msg = 'Could not obtain tool pose. The' +\
+                      ' error was: {}'.format(io_error)
             except ValueError as value_error:
-                logging.error('Could not obtain tool pose. The'
-                              ' error was %s', value_error)
+                msg = 'Could not obtain tool pose. The' +\
+                      ' error was: {}'.format(value_error)
             else:
                 session_log.append(tool_pose)
                 captured += 1
+                msg = 'Captured {} pose'.format(captured)
+                if captured > 1:
+                    msg += 's'
+                quality, error = tool_pose.quality
+        display_status(tracker.connected, quality, error, msg, False)  # TODO pretty
 
         if captured >= num_poses:
             break
