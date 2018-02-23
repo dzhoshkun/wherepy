@@ -122,19 +122,15 @@ class Tracker(wherepy.track.Tracker):
         if error != NDI_OKAY:
             raise IOError('Could not capture tool with ID {}. The error was:'
                           ' {}'.format(tool_id, ndiErrorString(error)))
-        if isinstance(transform, str):
-            if transform.startswith('disabled') or transform.startswith('missing'):
-                raise ValueError('Could not capture tool with ID {}. The error was:'
-                                 ' {}'.format(tool_id, transform))
 
         # parse obtained transformation numbers
-        quaternion = list(transform[:4])
-        coordinates = list(transform[4:7])
-
         try:
+            quaternion = [float(value) for value in transform[:4]]
+            coordinates = [float(value) for value in transform[4:7]]
             error = float(transform[-1])
         except ValueError:
-            error = float('inf')
+            raise IOError('Could not parse returned data of tool with ID {}. The'
+                          ' data was: {}'.format(tool_id, transform))
 
         quality = wherepy.track.utils.quality(error, 3.00, 0.00)
 
