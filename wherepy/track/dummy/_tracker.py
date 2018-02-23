@@ -28,6 +28,10 @@ class Tracker(wherepy.track.Tracker):
         if not self.connected:
             raise IOError('Not connected')
 
+        # should I stay or should I go? :)
+        if random() < 0.2:
+            raise IOError('I am moody 20 % of the time')
+
         # generate a random quaternion
         quaternion = [uniform(0.0, 1000.0) for _ in range(4)]
         norm = reduce(lambda value_1, value_2: value_1 + value_2,
