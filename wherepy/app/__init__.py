@@ -44,5 +44,8 @@ def indicator_cli():
 
     args = parser.parse_args()
 
-    tracker = Tracker()
+    if args.dry_run:
+        tracker = wherepy.track.dummy.Tracker()
+    else:
+        tracker = wherepy.track.ndi.Tracker()
     run_indicator_cli(tracker=tracker, update_rate=3, utf=args.pretty)
