@@ -1,6 +1,6 @@
 """Internal module that keeps the Tracker class for generating random data."""
 
-from random import (random, uniform)
+from random import (random, uniform, randrange)
 from math import sqrt
 import wherepy.track
 
@@ -25,8 +25,9 @@ class Tracker(wherepy.track.Tracker):
             raise IOError('Not connected')
 
         # should I stay or should I go? :)
-        if random() < 0.2:
-            raise IOError('I am moody 20 % of the time')
+        moody_perc = 20
+        if randrange(0, 100) < moody_perc:
+            raise IOError('I am moody {} % of the time'.format(moody_perc))
 
         # generate a random quaternion
         quaternion = [uniform(0.0, 1000.0) for _ in range(4)]
