@@ -11,4 +11,14 @@ def quality(error, max_error, min_error=0.0):
     :return: a value btw. 0.00 and 1.00, representing a
     percentage
     """
-    return 0.0
+    min_quality, max_quality = 0.00, 1.00  # %
+
+    if error > max_error:
+        return min_quality
+
+    if error < min_error:
+        return max_quality
+
+    return (max_quality * (max_error - error) +
+            min_quality * (error - min_error)) /\
+           (max_error - min_error)
