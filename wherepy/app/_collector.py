@@ -5,7 +5,7 @@ import logging
 from wherepy.io import (display_header, display_status)
 
 
-def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
+def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=False):
     """Start passed tracker, collect specified number of poses, and stop it.
 
     :param tracker: no sanity checks are performed on this passed object, it
@@ -18,6 +18,7 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
     :type session_log: SessionLog
     :param update_rate: update rate in Hz
     :type update_rate: int
+    :param utf: whether to use Unicode symbols
     :return: ``True`` if collection of at least specified number of poses
     succeeds, ``False`` otherwise
     """
@@ -53,7 +54,8 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10):
                 if captured > 1:
                     msg += 's'
                 quality, error = tool_pose.quality
-        display_status(tracker.connected, quality, error, msg, False)  # TODO pretty
+
+        display_status(tracker.connected, quality, error, msg, utf)
 
         if captured >= num_poses:
             break
