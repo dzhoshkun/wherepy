@@ -39,6 +39,8 @@ def indicator_cli():
     parser = ArgumentParser()
     parser.add_argument('--pretty', help='Pretty formatting (uses Unicode characters)',
                         action='store_true')
+    parser.add_argument('-d', '--dry-run', help='Dry-run, useful for offline testing',
+                        action='store_true')
 
     args = parser.parse_args()
 
