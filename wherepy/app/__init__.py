@@ -13,6 +13,8 @@ def collector_cli():
     """Collect tracking data in CLI mode."""
 
     parser = ArgumentParser()
+    parser.add_argument('-x', '--pretty', help='Pretty formatting (uses Unicode characters)',
+                        action='store_true')
     parser.add_argument('-p', '--num-poses', help='Number of poses to capture',
                         type=check_positive_int,
                         metavar='N', required=True)
@@ -29,7 +31,8 @@ def collector_cli():
     else:
         tracker = wherepy.track.ndi.Tracker()
     session_log = SessionLog(args.session_log)
-    if not collect_n_poses_cli(tracker=tracker, num_poses=args.num_poses, session_log=session_log):
+    if not collect_n_poses_cli(tracker=tracker, num_poses=args.num_poses,
+                               session_log=session_log, utf=args.pretty):
         exit(1)
 
 
