@@ -40,21 +40,12 @@ class Tracker(wherepy.track.Tracker):
         # tracking volume of 1 m3
         coordinates = [uniform(-500.0, 500.0) for _ in range(3)]
 
-        # an artificial measure of quality based on a
-        # maximum allowable error of 0.8 mm
-        quality_min, quality_max = 0.00, 1.00  # %
-        error_min, error_max = 0.00, 0.80  # mm
-        error_range = error_max - error_min
-
         # generate a random error value
         error = random()
 
-        if error > error_max:
-            quality = quality_min
-        else:
-            quality = quality_max * (error_max - error)
-            quality += quality_min * (error - error_min)
-            quality /= error_range
+        # compute the corresponding quality, based on an artificial
+        # 0.8 mm maximum allowable error
+        quality = wherepy.track.utils.quality(error, 0.8)
 
         # return a tool pose with the generated values
         return wherepy.track.ToolPose(
