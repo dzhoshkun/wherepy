@@ -6,7 +6,7 @@ from time import time
 class ToolPose(object):
     """Abstraction for timestamped tracking data of a tool."""
 
-    def __init__(self, tid, quaternion, coordinates, quality, error, timestamp=time()):
+    def __init__(self, tid, quaternion, coordinates, quality, error, timestamp=None):
         """Construct a new tool pose with given data.
 
         :param tid: a device-specific ID value for unambiguously resolving tools
@@ -20,7 +20,8 @@ class ToolPose(object):
         :type quality: float between 0.00 and 1.00 (representing a percentage)
         :param error: This is a device-specific record of tracking error for this pose
         :type error: anything, even ``None``
-        :param timestamp: when this tool pose was captured
+        :param timestamp: when this tool pose was captured, if left blank, the
+        time of creating this object
         :type timestamp: a valid value in seconds as per
         https://docs.python.org/2/library/time.html#time.time
         :raise ValueError: if any of the given parameters are invalid
@@ -46,10 +47,12 @@ class ToolPose(object):
         self.__quality = quality
         self.__error = error
 
-        if timestamp <= 0.0:
+        self.__timestamp = timestamp
+        if not self.__timestamp:
+            self.__timestamp = time()
+        if self.__timestamp <= 0.0:
             raise ValueError('A timestamp is usually a positive floating-'
                              'point value ({} passed)'.format(timestamp))
-        self.__timestamp = timestamp
 
     @property
     def tid(self):
