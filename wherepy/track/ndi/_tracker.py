@@ -2,6 +2,10 @@
 
 from time import sleep
 import wherepy.track
+try:
+    import ndicapy as pyndicapi
+except ImportError:
+    import pyndicapi  # legacy
 from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
                        ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
                        ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
