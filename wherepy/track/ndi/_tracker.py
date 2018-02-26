@@ -2,15 +2,17 @@
 
 from time import sleep
 import wherepy.track
-# pylint:disable=unused-import
 try:
-    import ndicapy as pyndicapi
+    # legacy
+    from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
+                           ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
+                           ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
+                           NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
 except ImportError:
-    import pyndicapi  # legacy
-from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
-                       ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
-                       ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
-                       NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
+    from ndicapy import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
+                         ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
+                         ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
+                         NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
 
 
 class Tracker(wherepy.track.Tracker):
