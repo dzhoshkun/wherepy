@@ -18,9 +18,15 @@ except ImportError:
 
 if sys.version_info[0] >= 3:
     def c_str(value):
+        """Convert passed value to a Python3-compatible
+        C-style string for use in NDI API functions.
+        """
         return bytes(str(value), 'utf-8')
 else:
     def c_str(value):
+        """Convert passed value to a Python2-compatible
+        C-style string for use in NDI API functions.
+        """
         return str(value)
 
 
