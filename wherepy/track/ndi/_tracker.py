@@ -1,5 +1,6 @@
 """Internal module that keeps the Tracker class for NDI devices."""
 
+import sys
 from time import sleep
 import wherepy.track
 try:
@@ -13,6 +14,14 @@ except ImportError:
                          ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
                          ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
                          NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
+
+
+if sys.version_info[0] >= 3:
+    def c_str(value):
+        return bytes(str(value), 'utf-8')
+else:
+    def c_str(value):
+        return str(value)
 
 
 class Tracker(wherepy.track.Tracker):
@@ -124,7 +133,7 @@ class Tracker(wherepy.track.Tracker):
                           ' was: {}'.format(command, ndiErrorString(error)))
 
         # acquire transform
-        transform = ndiGetGXTransform(self.device, str(tool_id))
+        transform = ndiGetGXTransform(self.device, c_str(tool_id))
         error = ndiGetError(self.device)
         if error != NDI_OKAY:
             raise IOError('Could not capture tool with ID {}. The error was:'
