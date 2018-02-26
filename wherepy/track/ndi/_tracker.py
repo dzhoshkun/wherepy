@@ -2,6 +2,7 @@
 
 from time import sleep
 import wherepy.track
+# pylint:disable=unused-import
 try:
     import ndicapy as pyndicapi
 except ImportError:
