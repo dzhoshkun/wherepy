@@ -1,8 +1,11 @@
 """Internal module that keeps the Tracker class for generating random data."""
 
+import sys
 from random import (random, uniform, randrange)
 from math import sqrt
 import wherepy.track
+if sys.version_info[0] >= 3:
+    from functools import reduce
 
 
 class Tracker(wherepy.track.Tracker):
