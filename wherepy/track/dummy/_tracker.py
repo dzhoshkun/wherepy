@@ -4,8 +4,12 @@ import sys
 from random import (random, uniform, randrange)
 from math import sqrt
 import wherepy.track
+# reduce has been replaced by functools.reduce in Python 3:
 if sys.version_info[0] >= 3:
-    from functools import reduce
+    import functools
+    _reduce = functools.reduce
+else:
+    _reduce = reduce
 
 
 class Tracker(wherepy.track.Tracker):
@@ -34,8 +38,8 @@ class Tracker(wherepy.track.Tracker):
 
         # generate a random quaternion
         quaternion = [uniform(0.0, 1000.0) for _ in range(4)]
-        norm = reduce(lambda value_1, value_2: value_1 + value_2,
-                      [pow(value, 2) for value in quaternion])
+        norm = _reduce(lambda value_1, value_2: value_1 + value_2,
+                       [pow(value, 2) for value in quaternion])
         norm = sqrt(norm)
         quaternion = [value / norm for value in quaternion]
 
