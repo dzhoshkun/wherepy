@@ -25,9 +25,12 @@ class Tracker(wherepy.track.Tracker):
             raise IOError('Not connected')
 
         # should I stay or should I go? :)
-        moody_perc = 20
-        if randrange(0, 100) < moody_perc:
-            raise IOError('I am moody {} % of the time'.format(moody_perc))
+        unwell_perc, moody_perc = 10, 30
+        current_perc = randrange(0, 100)
+        if current_perc < unwell_perc:
+            raise IOError('I am unwell {} % of the time'.format(unwell_perc))
+        elif current_perc < moody_perc:
+            raise ValueError('I am moody {} % of the time'.format(moody_perc))
 
         # generate a random quaternion
         quaternion = [uniform(0.0, 1000.0) for _ in range(4)]
