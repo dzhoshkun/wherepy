@@ -13,6 +13,12 @@ def get_field_widths():
     return [10, 19, 11, 36]
 
 
+def get_field_labels():
+    """Get a list of the field labels."""
+
+    return ['Device', 'Signal', 'Error', 'Info']
+
+
 def display_header():
     """Display tracking data status header on the CLI."""
 
