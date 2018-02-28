@@ -46,8 +46,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     :param utf: whether to use Unicode symbols
     """
 
-    widths = get_field_widths()
-    status = ''
+    status_fields = []
 
     # pylint:disable=relative-import
     if utf:
@@ -56,43 +55,33 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     else:
         import _symbols_ascii
         symbols = _symbols_ascii.INDICATOR_SYMBOLS
-    connection_status = symbols['connection_status'][connected].center(widths[0] + 1)
+    connection_status = ' '
     if utf:
-        status += '  '
-    status += '{}'.format(connection_status)
+        connection_status += ' '
+    connection_status += symbols['connection_status'][connected]
+    status_fields.append(connection_status)
 
-    total_bars = 10
-    quality_bars = 0
-    space_bars = total_bars - quality_bars
-    arrow = ''
-    if quality:
-        quality_bars = int(quality / (1.0 / total_bars))
-        space_bars = total_bars - quality_bars
-        if quality_bars - 1 > 0:
-            quality_bars -= 1
-            arrow = '>'
-    else:
+    if not quality:
         quality = 0.0
-    signal_status = '=' * quality_bars
-    signal_status += arrow
-    signal_status += ' ' * space_bars
-    signal_status = '[{}] {:2d} %'.format(
-        signal_status, int(100 * quality)).center(widths[1] + 1)
-    status += ' {}'.format(signal_status)
+    total_bars = 10
+    quality_bars = max(int(quality / (1.0 / total_bars)) - 1, 0)
+    space_bars = total_bars - quality_bars - 1
+    signal_status = '=' * quality_bars + '>' + ' ' * space_bars
+    signal_status = '[{}] {:3d} %'.format(signal_status, int(100 * quality))
+    status_fields.append(signal_status)
 
-    error_status = 'NA '
+    error_status = ' '
     if error:
-        if error == float('inf'):
-            error_status = '  ~  '
-        else:
+        if error <= float('inf'):
             error_status = '{:.2f} mm'.format(error)
-    error_status = '{}'.format(error_status.center(9)).center(widths[2] + 1)
-    status += ' {}'.format(error_status)
+    status_fields.append(error_status)
 
-    if msg:
-        status += ' {}'.format(msg[:widths[3] - 2]).center(widths[3])
-    else:
-        status += ' ' * (widths[3] + 1)
+    if not msg:
+        msg = ' '
+    status_fields.append(msg)
 
+    status = ' '.join(map(lambda label, width: label.center(width),
+                          status_fields, get_field_widths()))
+    status = ' {} '.format(status)
     stdout.write('{}\r'.format(status))
     stdout.flush()
