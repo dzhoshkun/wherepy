@@ -46,7 +46,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     :param utf: whether to use Unicode symbols
     """
 
-    status_fields = []
+    fields = []
 
     # pylint:disable=relative-import
     if utf:
@@ -59,7 +59,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     if utf:
         connection_status += ' '
     connection_status += symbols['connection_status'][connected]
-    status_fields.append(connection_status)
+    fields.append(connection_status)
 
     if not quality:
         quality = 0.0
@@ -68,20 +68,20 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     space_bars = total_bars - quality_bars - 1
     signal_status = '=' * quality_bars + '>' + ' ' * space_bars
     signal_status = '[{}] {:3d} %'.format(signal_status, int(100 * quality))
-    status_fields.append(signal_status)
+    fields.append(signal_status)
 
     error_status = ' '
     if error:
         if error <= float('inf'):
             error_status = '{:.2f} mm'.format(error)
-    status_fields.append(error_status)
+    fields.append(error_status)
 
     if not msg:
         msg = ' '
-    status_fields.append(msg)
+    fields.append(msg)
 
     widths = get_field_widths()
-    status = ' '.join([label.center(width) for label, width in zip(status_fields, widths)])
+    status = ' '.join([label.center(width) for label, width in zip(fields, widths)])
     status = ' {} '.format(status)
     stdout.write('{}\r'.format(status))
     stdout.flush()
