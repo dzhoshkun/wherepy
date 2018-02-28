@@ -23,11 +23,9 @@ def display_header():
     """Display tracking data status header on the CLI."""
 
     widths = get_field_widths()
-
-    header = '|{}'.format('Device'.center(widths[0]))
-    header += '|{}'.format('Signal'.center(widths[1]))
-    header += '|{}'.format('Error'.center(widths[2]))
-    header += '|{}|'.format('Info'.center(widths[3]))
+    header = '|'.join(map(lambda label, width: label.center(width),
+                          get_field_labels(), widths))
+    header = '|{}|'.format(header)
     stdout.write('{}\n'.format(header))
 
     separator = '-' * (sum(widths) + (1 + len(widths)))
