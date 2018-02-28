@@ -37,20 +37,20 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=Fal
                 display_status(tracker.connected, quality, error, msg, utf)
 
                 tracker.connect()
-            except IOError as io_error:
-                msg = 'Could not connect ({})'.format(io_error)
+            except IOError:
+                msg = 'Could not connect to device'
 
         if tracker.connected:
             try:
                 tool_pose = tracker.capture(tool_id=1)
-            except IOError as io_error:
-                msg = 'Could not obtain pose ({})'.format(io_error)
-            except ValueError as value_error:
-                msg = 'Could not obtain pose ({})'.format(value_error)
+            except IOError:
+                msg = 'Out of tracking volume?'
+            except ValueError:
+                msg = 'Unsupported tool'
             else:
                 session_log.append(tool_pose)
                 captured += 1
-                msg = 'Captured {} pose'.format(captured)
+                msg = 'Collected {} pose'.format(captured)
                 if captured > 1:
                     msg += 's'
                 quality, error = tool_pose.quality
@@ -65,14 +65,14 @@ def collect_n_poses_cli(tracker, num_poses, session_log, update_rate=10, utf=Fal
     if tracker.connected:
         try:
             tracker.disconnect()
-        except IOError as io_error:
-            msg = 'Could not disconnect ({})'.format(io_error)
+        except IOError:
+            msg = 'Could not disconnect from device'
 
     if captured == 0:
         msg = 'Could not collect any poses'
 
     if captured < num_poses:
-        msg = 'Could collect only {} poses'.format(captured)
+        msg = 'Collected only {} out of {} poses'.format(captured, num_poses)
 
     display_status(tracker.connected, quality, error, msg, utf)
 
