@@ -22,9 +22,9 @@ def get_field_labels():
 def display_header():
     """Display tracking data status header on the CLI."""
 
+    labels = get_field_labels()
     widths = get_field_widths()
-    header = '|'.join(map(lambda label, width: label.center(width),
-                          get_field_labels(), widths))
+    header = '|'.join([label.center(width) for label, width in zip(labels, widths)])
     header = '|{}|'.format(header)
     stdout.write('{}\n'.format(header))
 
@@ -80,8 +80,8 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
         msg = ' '
     status_fields.append(msg)
 
-    status = ' '.join(map(lambda label, width: label.center(width),
-                          status_fields, get_field_widths()))
+    widths = get_field_widths()
+    status = ' '.join([label.center(width) for label, width in zip(status_fields, widths)])
     status = ' {} '.format(status)
     stdout.write('{}\r'.format(status))
     stdout.flush()
