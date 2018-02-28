@@ -56,11 +56,7 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     else:
         from . import _symbols_ascii
         symbols = _symbols_ascii.INDICATOR_SYMBOLS
-    if connected:
-        connection_status = symbols['connection_status']['connected']
-    else:
-        connection_status = symbols['connection_status']['not connected']
-    connection_status = '{}'.format(connection_status).center(widths[0] + 1)
+    connection_status = symbols['connection_status'][connected].center(widths[0] + 1)
     if utf:
         status += '  '
     status += '{}'.format(connection_status)
