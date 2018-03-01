@@ -55,10 +55,9 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
     else:
         import _symbols_ascii
         symbols = _symbols_ascii.INDICATOR_SYMBOLS
-    connection_status = ' '
+    connection_status = symbols['connection_status'][connected]
     if utf:
-        connection_status += ' '
-    connection_status += symbols['connection_status'][connected]
+        connection_status = '    {}   '.format(connection_status)
     fields.append(connection_status)
 
     if not quality:
