@@ -50,10 +50,10 @@ def display_status(connected, quality=None, error=None, msg=None, utf=False):
 
     # pylint:disable=relative-import
     if utf:
-        import _symbols_unicode
+        from . import _symbols_unicode
         symbols = _symbols_unicode.INDICATOR_SYMBOLS
     else:
-        import _symbols_ascii
+        from . import _symbols_ascii
         symbols = _symbols_ascii.INDICATOR_SYMBOLS
     connection_status = symbols['connection_status'][connected]
     if utf:

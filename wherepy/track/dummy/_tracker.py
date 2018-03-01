@@ -34,8 +34,7 @@ class Tracker(wherepy.track.Tracker):
 
         # generate a random quaternion
         quaternion = [uniform(0.0, 1000.0) for _ in range(4)]
-        norm = reduce(lambda value_1, value_2: value_1 + value_2,
-                      [pow(value, 2) for value in quaternion])
+        norm = sum([pow(value, 2) for value in quaternion])
         norm = sqrt(norm)
         quaternion = [value / norm for value in quaternion]
 

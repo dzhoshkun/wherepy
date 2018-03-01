@@ -1,11 +1,33 @@
 """Internal module that keeps the Tracker class for NDI devices."""
 
+import sys
 from time import sleep
 import wherepy.track
-from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
-                       ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
-                       ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
-                       NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
+try:
+    # legacy
+    from pyndicapi import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
+                           ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
+                           ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
+                           NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
+except ImportError:
+    from ndicapy import (ndiDeviceName, ndiProbe, ndiOpen, ndiClose,
+                         ndiCommand, NDI_OKAY, ndiGetError, ndiErrorString,
+                         ndiGetGXTransform, NDI_XFORMS_AND_STATUS,
+                         NDI_115200, NDI_8N1, NDI_NOHANDSHAKE)
+
+
+if sys.version_info[0] >= 3:
+    def c_str(value):
+        """Convert passed value to a Python3-compatible
+        C-style string for use in NDI API functions.
+        """
+        return bytes(str(value), 'utf-8')
+else:
+    def c_str(value):
+        """Convert passed value to a Python2-compatible
+        C-style string for use in NDI API functions.
+        """
+        return str(value)
 
 
 class Tracker(wherepy.track.Tracker):
@@ -117,7 +139,7 @@ class Tracker(wherepy.track.Tracker):
                           ' was: {}'.format(command, ndiErrorString(error)))
 
         # acquire transform
-        transform = ndiGetGXTransform(self.device, str(tool_id))
+        transform = ndiGetGXTransform(self.device, c_str(tool_id))
         error = ndiGetError(self.device)
         if error != NDI_OKAY:
             raise IOError('Could not capture tool with ID {}. The error was:'
